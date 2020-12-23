@@ -54,9 +54,11 @@ class SFTPFile(BufferedFile):
     that built-in Python file objects are.
     """
 
-    # Some sftp servers will choke if you send read/write requests larger than
-    # this size.
-    MAX_REQUEST_SIZE = 32768
+    # This parameter was modified because with the original value
+    # the client closed the connections systematically 
+    # when tried to download large files  
+    
+    MAX_REQUEST_SIZE = pow(2, 31)
 
     def __init__(self, sftp, handle, mode="r", bufsize=-1):
         BufferedFile.__init__(self)
